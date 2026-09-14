@@ -49,19 +49,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center gap-3 shrink-0">
           <Link href="/" className="flex items-center gap-2">
-            <div
-              style={{
-                width: 32,
-                height: 32,
-                borderRadius: 8,
-                background: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <span style={{ color: "#fff", fontWeight: 800, fontSize: 14, fontFamily: "Plus Jakarta Sans, sans-serif" }}>R</span>
-            </div>
+            <img src="/logo.svg" alt="Resolv logo" width={32} height={32} />
             <span className="text-title-md" style={{ color: "var(--color-on-surface)", letterSpacing: "-0.01em" }}>
               Resolv
             </span>

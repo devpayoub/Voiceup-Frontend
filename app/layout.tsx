@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   title: "Resolv — Public Accountability & Collective Action",
   description:
     "Join fellow consumers demanding fairness. Crowdsource evidence, track corporate responses, and escalate grievances into binding systemic resolutions.",
+  icons: { icon: "/logo.svg" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
