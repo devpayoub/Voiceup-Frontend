@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { register } from "@/lib/api/auth";
+import { apiErrorMessage } from "@/lib/api/client";
 import AuthShell from "@/components/layout/AuthShell";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
@@ -36,8 +37,8 @@ export default function RegisterPage() {
       await register({ username, email, password, region });
       router.push("/");
       router.refresh();
-    } catch {
-      setError("Could not create account. Username/email may already be taken.");
+    } catch (err) {
+      setError(apiErrorMessage(err, "Could not create account. Username/email may already be taken."));
     } finally {
       setLoading(false);
     }

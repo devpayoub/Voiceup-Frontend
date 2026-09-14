@@ -54,4 +54,23 @@ export function mediaUrl(path: string | null): string | null {
   return path.startsWith("http") ? path : `${API_URL}${path}`;
 }
 
+// DRF validation errors come back as {"field": ["message"]}; apiJson embeds
+// the raw body in its thrown Error, so pull the real reason out of that
+// instead of always showing a generic fallback message.
+export function apiErrorMessage(err: unknown, fallback: string): string {
+  if (err instanceof Error) {
+    const jsonStart = err.message.indexOf("{");
+    if (jsonStart !== -1) {
+      try {
+        const data = JSON.parse(err.message.slice(jsonStart));
+        const messages = Object.values(data).flat().filter((v) => typeof v === "string");
+        if (messages.length) return messages.join(" ");
+      } catch {
+        // Not JSON — fall through to fallback.
+      }
+    }
+  }
+  return fallback;
+}
+
 export { API_URL };

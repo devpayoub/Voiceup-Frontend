@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { login } from "@/lib/api/auth";
+import { apiErrorMessage } from "@/lib/api/client";
 import AuthShell from "@/components/layout/AuthShell";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
@@ -34,8 +35,8 @@ export default function LoginPage() {
       await login(email, password);
       router.push("/");
       router.refresh();
-    } catch {
-      setError("Invalid email or password.");
+    } catch (err) {
+      setError(apiErrorMessage(err, "Invalid email or password."));
     } finally {
       setLoading(false);
     }
