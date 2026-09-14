@@ -10,6 +10,7 @@ import { Category, Company, Complaint, User } from "@/lib/types";
 import ComplaintCard from "@/components/complaints/ComplaintCard";
 import { Input } from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
+import { ComplaintCardSkeleton, Skeleton } from "@/components/ui/Skeleton";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -62,7 +63,23 @@ export default function ProfilePage() {
   if (!me) {
     return (
       <div className="page-root" style={{ minHeight: "100vh" }}>
-        <p className="text-body-md" style={{ color: "var(--color-outline)", padding: "3rem 1.5rem" }}>Loading...</p>
+        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "2rem 1.5rem 3rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          <div className="bg-surface-container-lowest rounded-xl shadow-sm" style={{ padding: "1.5rem" }}>
+            <div className="flex items-center gap-4">
+              <Skeleton style={{ width: 72, height: 72, borderRadius: "50%" }} />
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <Skeleton style={{ width: 160, height: 22 }} />
+                <Skeleton style={{ width: 220, height: 14 }} />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3" style={{ marginTop: "1.5rem" }}>
+              {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} style={{ height: 76 }} />)}
+            </div>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1rem" }}>
+            {Array.from({ length: 3 }).map((_, i) => <ComplaintCardSkeleton key={i} />)}
+          </div>
+        </div>
       </div>
     );
   }

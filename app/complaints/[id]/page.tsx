@@ -9,6 +9,7 @@ import { Category, Comment, Company, Complaint, Status } from "@/lib/types";
 import StatusBadge from "@/components/complaints/StatusBadge";
 import Button from "@/components/ui/Button";
 import { Textarea } from "@/components/ui/Input";
+import { Skeleton } from "@/components/ui/Skeleton";
 
 const STAGES: { status: Status; label: string; icon: string }[] = [
   { status: "received", label: "Complaint Filed", icon: "flag" },
@@ -72,7 +73,23 @@ export default function ComplaintDetailPage(props: PageProps<"/complaints/[id]">
   if (!complaint) {
     return (
       <div className="page-root" style={{ minHeight: "100vh" }}>
-        <p className="text-body-md" style={{ color: "var(--color-outline)", padding: "3rem 1.5rem" }}>Loading...</p>
+        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "2rem 1.5rem 3rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <Skeleton style={{ width: 100, height: 20, borderRadius: 999 }} />
+            <Skeleton style={{ width: "60%", height: 32 }} />
+            <Skeleton style={{ width: "40%", height: 14 }} />
+          </div>
+          <Skeleton style={{ height: 100 }} />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div className="lg:col-span-8 flex flex-col gap-4">
+              <Skeleton style={{ height: 160 }} />
+              <Skeleton style={{ height: 220 }} />
+            </div>
+            <div className="lg:col-span-4">
+              <Skeleton style={{ height: 200 }} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

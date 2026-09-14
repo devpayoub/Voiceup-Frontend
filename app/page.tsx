@@ -9,6 +9,7 @@ import { categoryIcon } from "@/lib/format";
 import ComplaintCard from "@/components/complaints/ComplaintCard";
 import Select from "@/components/ui/Select";
 import { Input } from "@/components/ui/Input";
+import { ComplaintCardSkeleton } from "@/components/ui/Skeleton";
 
 function FeedContent() {
   const urlParams = useSearchParams();
@@ -188,7 +189,9 @@ function FeedContent() {
             )}
 
             {loading ? (
-              <p style={{ color: "var(--color-outline)" }}>Loading...</p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1rem" }}>
+                {Array.from({ length: 6 }).map((_, i) => <ComplaintCardSkeleton key={i} />)}
+              </div>
             ) : sorted.length === 0 ? (
               <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--color-on-surface-variant)" }}>
                 <p className="text-headline-sm" style={{ color: "var(--color-outline)", marginBottom: "0.5rem" }}>No complaints match these filters yet.</p>

@@ -11,15 +11,7 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="site-footer-inner">
         <div className="flex items-center gap-2">
-          <div
-            style={{
-              width: 24, height: 24, borderRadius: 6,
-              background: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}
-          >
-            <span style={{ color: "#fff", fontWeight: 800, fontSize: 11, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>R</span>
-          </div>
+          <img src="/logo.svg" alt="VoiceUp logo" width={24} height={24} />
           <span className="font-headline-sm text-headline-sm text-on-surface">VoiceUp</span>
           <span className="text-label-sm" style={{ marginLeft: "0.5rem" }}>Independent Citizen &amp; Consumer Advocacy</span>
         </div>
