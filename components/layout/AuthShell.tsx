@@ -29,8 +29,18 @@ export default function AuthShell({ headline, subhead, children }: Props) {
   }, []);
 
   return (
-    <div className="page-root" style={{ minHeight: "100vh", padding: "2rem" }}>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8" style={{ maxWidth: 1120, margin: "0 auto" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        paddingTop: "4rem",
+        paddingLeft: "2rem",
+        paddingRight: "2rem",
+        paddingBottom: "2rem",
+      }}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8" style={{ maxWidth: 1120, margin: "0 auto", width: "100%" }}>
         <div
           className="lg:col-span-5"
           style={{
@@ -44,7 +54,7 @@ export default function AuthShell({ headline, subhead, children }: Props) {
                 <span className="material-symbols-outlined" style={{ fontSize: 22 }}>gavel</span>
               </div>
               <div>
-                <div className="text-headline-sm" style={{ color: "#fff" }}>Resolv</div>
+                <div className="text-headline-sm" style={{ color: "#fff" }}>VoiceUp</div>
                 <div className="text-label-sm uppercase" style={{ letterSpacing: "0.1em", color: "rgba(255,255,255,0.65)" }}>Civic Redress Network</div>
               </div>
             </div>

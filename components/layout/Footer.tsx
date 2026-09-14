@@ -1,6 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname === "/login" || pathname === "/register") return null;
+
   return (
     <footer className="site-footer">
       <div className="site-footer-inner">
@@ -14,7 +20,7 @@ export default function Footer() {
           >
             <span style={{ color: "#fff", fontWeight: 800, fontSize: 11, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>R</span>
           </div>
-          <span className="font-headline-sm text-headline-sm text-on-surface">Resolv</span>
+          <span className="font-headline-sm text-headline-sm text-on-surface">VoiceUp</span>
           <span className="text-label-sm" style={{ marginLeft: "0.5rem" }}>Independent Citizen &amp; Consumer Advocacy</span>
         </div>
         <div className="flex items-center gap-6">
@@ -22,7 +28,7 @@ export default function Footer() {
           <Link href="/complaints/new" className="hover:text-on-surface" style={{ transition: "color 150ms ease" }}>File a Complaint</Link>
         </div>
         <div className="font-label-sm text-label-sm" style={{ color: "var(--color-outline)" }}>
-          © {new Date().getFullYear()} Resolv
+          © {new Date().getFullYear()} VoiceUp
         </div>
       </div>
     </footer>

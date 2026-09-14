@@ -79,7 +79,7 @@ export default function ComplaintDetailPage(props: PageProps<"/complaints/[id]">
 
   const photo = mediaUrl(complaint.photo);
   const currentStage = STAGE_ORDER[complaint.status];
-  const tweetText = encodeURIComponent(`${complaint.title} — see the case on Resolv`);
+  const tweetText = encodeURIComponent(`${complaint.title} — see the case on VoiceUp`);
 
   return (
     <div className="page-root" style={{ minHeight: "100vh" }}>

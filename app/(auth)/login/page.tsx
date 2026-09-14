@@ -43,7 +43,7 @@ export default function LoginPage() {
 
   return (
     <AuthShell
-      headline="Welcome back to Resolv."
+      headline="Welcome back to VoiceUp."
       subhead="Access your filed complaints, back cases from your community, and track responses."
     >
       <div className="card" style={{ padding: "2.5rem" }}>

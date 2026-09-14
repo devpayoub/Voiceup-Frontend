@@ -234,6 +234,25 @@ function FeedContent() {
               </div>
             </div>
 
+            <div className="bg-surface-container-lowest rounded-xl p-4 shadow-sm">
+              <h3 className="text-title-md" style={{ color: "var(--color-on-surface)", marginBottom: "0.5rem" }}>Get the app</h3>
+              <p className="text-body-sm" style={{ color: "var(--color-on-surface-variant)", marginBottom: "0.75rem" }}>
+                File and track complaints from your phone.
+              </p>
+              <Link
+                href="/download"
+                style={{
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  borderRadius: "0.5rem", overflow: "hidden", border: "1px solid var(--color-border)",
+                }}
+              >
+                <img src="/android.svg" alt="Download for Android" style={{ width: "100%", height: "auto", display: "block" }} />
+              </Link>
+              <p className="text-label-sm" style={{ color: "var(--color-outline)", marginTop: "0.5rem", textAlign: "center" }}>
+                iOS — coming soon
+              </p>
+            </div>
+
             {categories.length > 0 && (
               <div className="bg-surface-container-lowest rounded-xl p-4 shadow-sm">
                 <h3 className="text-title-md" style={{ color: "var(--color-on-surface)", marginBottom: "0.75rem" }}>Categories</h3>

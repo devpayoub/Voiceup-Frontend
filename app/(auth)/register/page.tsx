@@ -60,7 +60,7 @@ export default function RegisterPage() {
           <IconInput icon="pin_drop" placeholder="Region / city" value={region} onChange={(e) => setRegion(e.target.value)} />
           {error && <p className="text-body-sm" style={{ color: "var(--color-on-error-container)" }}>{error}</p>}
           <Button type="submit" disabled={loading} style={{ height: "3.25rem", width: "100%", gap: "0.5rem" }}>
-            <span>{loading ? "Creating account..." : "Join Resolv"}</span>
+            <span>{loading ? "Creating account..." : "Join VoiceUp"}</span>
             {!loading && <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span>}
           </Button>
         </form>

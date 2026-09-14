@@ -18,7 +18,7 @@ const heading = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Resolv — Public Accountability & Collective Action",
+  title: "VoiceUp — Public Accountability & Collective Action",
   description:
     "Join fellow consumers demanding fairness. Crowdsource evidence, track corporate responses, and escalate grievances into binding systemic resolutions.",
   icons: { icon: "/logo.svg" },

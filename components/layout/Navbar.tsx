@@ -49,9 +49,9 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center gap-3 shrink-0">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/logo.svg" alt="Resolv logo" width={32} height={32} />
+            <img src="/logo.svg" alt="VoiceUp logo" width={32} height={32} />
             <span className="text-title-md" style={{ color: "var(--color-on-surface)", letterSpacing: "-0.01em" }}>
-              Resolv
+              VoiceUp
             </span>
           </Link>
 
