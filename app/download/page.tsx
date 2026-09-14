@@ -1,4 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { SITE_NAME } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Download the App",
+  description: "Get VoiceUp for Android. File and track complaints from your phone. iOS support is coming soon.",
+  alternates: { canonical: "/download" },
+  openGraph: {
+    title: `Download the App | ${SITE_NAME}`,
+    description: "Get VoiceUp for Android. File and track complaints from your phone. iOS support is coming soon.",
+    url: "/download",
+  },
+};
 
 export default function DownloadPage() {
   return (
@@ -22,7 +35,7 @@ export default function DownloadPage() {
             Download APK
           </a>
           <p className="text-label-sm" style={{ color: "var(--color-outline)" }}>
-            Your phone may warn about installing from an unknown source — that's expected outside the Play Store.
+            Your phone may warn about installing from an unknown source — that&apos;s expected outside the Play Store.
           </p>
         </div>
 

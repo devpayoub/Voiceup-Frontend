@@ -10,6 +10,7 @@ import StatusBadge from "@/components/complaints/StatusBadge";
 import Button from "@/components/ui/Button";
 import { Textarea } from "@/components/ui/Input";
 import { Skeleton } from "@/components/ui/Skeleton";
+import { absoluteUrl } from "@/lib/seo";
 
 const STAGES: { status: Status; label: string; icon: string }[] = [
   { status: "received", label: "Complaint Filed", icon: "flag" },
@@ -98,8 +99,21 @@ export default function ComplaintDetailPage(props: PageProps<"/complaints/[id]">
   const currentStage = STAGE_ORDER[complaint.status];
   const tweetText = encodeURIComponent(`${complaint.title} — see the case on VoiceUp`);
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      ...(categoryName
+        ? [{ "@type": "ListItem", position: 2, name: categoryName, item: absoluteUrl(`/?category=${complaint.category}`) }]
+        : []),
+      { "@type": "ListItem", position: categoryName ? 3 : 2, name: complaint.title, item: absoluteUrl(`/complaints/${complaint.id}`) },
+    ],
+  };
+
   return (
     <div className="page-root" style={{ minHeight: "100vh" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "2rem 1.5rem 3rem" }}>
         {/* Breadcrumb */}
         <nav className="flex items-center flex-wrap gap-2 text-label-md" style={{ color: "var(--color-on-surface-variant)", marginBottom: "1rem" }}>
