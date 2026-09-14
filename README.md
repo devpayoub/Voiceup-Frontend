@@ -1,11 +1,9 @@
-# web (Next.js)
+# VoiceUp — web
 
-Browser client for the citizen complaints platform.
+The browser client for VoiceUp: browse, file, back, and track public complaints straight from a desktop or mobile browser.
 
-| Function | Why it's needed |
-|---|---|
-| Login / Register pages | Browser entry point for creating and accessing an account. |
-| Feed with search, category/company/status filters, sort | Anyone should be able to browse and narrow down public complaints without an account. |
-| Complaint detail (backing, resolution tracker, comments, share) | The place to actually act on a case — back it, read/add discussion, see where it stands, share it outside the app. |
-| Submit-complaint form | Lets a citizen file a new complaint from a desktop browser. |
-| Profile page (stats + own complaints) | Lets a citizen track what they've filed and whether it's been resolved. |
+## Why use it
+
+- **Zero install.** Anyone can look at the feed, read a case, or back a complaint the moment they land on the page — no app store, no account required just to browse.
+- **Full parity with the mobile app.** Filing a complaint, backing one, commenting, and tracking your own submissions all work exactly the same as on mobile — the web app isn't a stripped-down version.
+- **The easiest way to share a case.** A complaint's URL is something you can drop in a message or post publicly, which is what actually builds the pressure the platform is for.
