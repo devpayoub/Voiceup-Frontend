@@ -15,14 +15,14 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0b1c30",
+          background: "#4a0404",
           color: "#fff",
           fontFamily: "sans-serif",
         }}
       >
         <div style={{ fontSize: 72, fontWeight: 800, letterSpacing: -2 }}>{SITE_NAME}</div>
-        <div style={{ fontSize: 32, color: "#bec6e0", marginTop: 24, maxWidth: 900, textAlign: "center" }}>
-          Public Accountability &amp; Collective Action
+        <div style={{ fontSize: 32, color: "#ffb3b6", marginTop: 24, maxWidth: 900, textAlign: "center" }}>
+          Responsabilité Publique et Action Collective
         </div>
       </div>
     ),

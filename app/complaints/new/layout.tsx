@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { SITE_NAME } from "@/lib/seo";
 
+const TITLE = "Déposer une plainte";
+const DESCRIPTION = "Documentez publiquement un litige avec une entreprise ou un service public en Tunisie. Les autres citoyens concernés peuvent le soutenir et ajouter des preuves.";
+
 export const metadata: Metadata = {
-  title: "File a Complaint",
-  description:
-    "Document a dispute with a company or public service publicly. Other citizens facing the same issue can back it and add evidence.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/complaints/new" },
   openGraph: {
-    title: `File a Complaint | ${SITE_NAME}`,
-    description:
-      "Document a dispute with a company or public service publicly. Other citizens facing the same issue can back it and add evidence.",
+    title: `${TITLE} | ${SITE_NAME}`,
+    description: DESCRIPTION,
     url: "/complaints/new",
   },
 };

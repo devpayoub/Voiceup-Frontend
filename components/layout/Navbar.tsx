@@ -3,13 +3,16 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { KeyboardEvent, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { apiJson } from "@/lib/api";
 import { logout as apiLogout } from "@/lib/api/auth";
 import { isAuthenticated } from "@/lib/auth";
 import { avatarColor, initials } from "@/lib/format";
 import { User } from "@/lib/types";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Navbar() {
+  const { t } = useTranslation();
   const [authed, setAuthed] = useState(false);
   const [me, setMe] = useState<User | null>(null);
   const [search, setSearch] = useState("");
@@ -49,16 +52,16 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center gap-3 shrink-0">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/logo.svg" alt="VoiceUp logo" width={32} height={32} />
+            <img src="/logo.svg" alt={`${t("brand.name")} logo`} width={32} height={32} />
             <span className="text-title-md" style={{ color: "var(--color-on-surface)", letterSpacing: "-0.01em" }}>
-              VoiceUp
+              {t("brand.name")}
             </span>
           </Link>
 
           <nav className="hidden xl:flex items-center gap-1 ml-4">
             {[
-              { label: "Feed / Explore", href: "/" },
-              { label: "File a Complaint", href: "/complaints/new" },
+              { label: t("nav.explore"), href: "/" },
+              { label: t("nav.fileComplaint"), href: "/complaints/new" },
             ].map(({ label, href }) => (
               <Link
                 key={href}
@@ -96,7 +99,7 @@ export default function Navbar() {
                 background: "var(--color-surface-container-low)", borderRadius: "0.5rem", border: "none",
                 color: "var(--color-on-surface)", outline: "none",
               }}
-              placeholder="Search complaints by company, issue, or region..."
+              placeholder={t("nav.searchPlaceholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={onSearchKeyDown}
@@ -106,9 +109,10 @@ export default function Navbar() {
 
         {/* Right actions */}
         <div className="flex items-center gap-2 shrink-0">
+          <LanguageSwitcher />
           <Link href="/complaints/new" className="btn-primary text-body-sm" style={{ height: "2.25rem", gap: "0.375rem" }}>
             <span className="material-symbols-outlined" style={{ fontSize: 18 }}>add</span>
-            <span>File Complaint</span>
+            <span>{t("nav.fileComplaint")}</span>
           </Link>
           {authed ? (
             <>
@@ -125,7 +129,7 @@ export default function Navbar() {
                 {me ? initials(me.username) : "…"}
               </Link>
               <button onClick={logout} className="btn-outline text-body-sm" style={{ height: "2.25rem", fontSize: 13 }}>
-                Log out
+                {t("nav.logout")}
               </button>
             </>
           ) : (
@@ -135,10 +139,10 @@ export default function Navbar() {
                 className="px-4 py-2 rounded-lg text-body-sm font-medium transition-colors"
                 style={{ color: "var(--color-on-surface-variant)" }}
               >
-                Log in
+                {t("nav.login")}
               </Link>
               <Link href="/register" className="btn-primary" style={{ height: "2.25rem" }}>
-                Sign up
+                {t("nav.signup")}
               </Link>
             </>
           )}

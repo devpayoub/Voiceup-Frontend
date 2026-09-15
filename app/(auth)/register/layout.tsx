@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sign Up",
-  description: "Create a free VoiceUp account to file complaints, back cases you share, and follow their status.",
+  title: "Créer un compte",
+  description: "Créez gratuitement votre compte Houni pour déposer des plaintes, soutenir des causes et suivre leur statut.",
   alternates: { canonical: "/register" },
   robots: { index: false, follow: true },
 };

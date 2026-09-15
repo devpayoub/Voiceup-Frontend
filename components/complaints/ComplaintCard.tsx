@@ -2,6 +2,7 @@
 
 import { MouseEvent, useState } from "react";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { apiFetch } from "@/lib/api";
 import { isAuthenticated } from "@/lib/auth";
 import { avatarColor, relativeTime } from "@/lib/format";
@@ -15,10 +16,11 @@ type Props = {
 };
 
 export default function ComplaintCard({ complaint, companyName, categoryName }: Props) {
+  const { t } = useTranslation();
   const [backed, setBacked] = useState(complaint.is_backed_by_me);
   const [count, setCount] = useState(complaint.backer_count);
   const [loading, setLoading] = useState(false);
-  const name = companyName || "Unknown company";
+  const name = companyName || "—";
   const avatar = avatarColor(name);
 
   async function toggleBack(e: MouseEvent) {
@@ -79,14 +81,14 @@ export default function ComplaintCard({ complaint, companyName, categoryName }: 
           <div
             style={{
               display: "flex", alignItems: "center", gap: 6,
-              background: "rgba(37,99,235,0.08)", padding: "0.375rem 0.75rem", borderRadius: "0.5rem",
+              background: "rgba(206,17,38,0.08)", padding: "0.375rem 0.75rem", borderRadius: "0.5rem",
             }}
           >
             <span className="material-symbols-outlined filled" style={{ fontSize: 16, color: "var(--color-secondary)" }}>
               local_fire_department
             </span>
             <span className="text-counter-lg" style={{ fontSize: 15, color: "var(--color-on-surface)" }}>{count}</span>
-            <span className="text-label-sm" style={{ color: "var(--color-on-surface-variant)" }}>affected</span>
+            <span className="text-label-sm" style={{ color: "var(--color-on-surface-variant)" }}>{t("complaintCard.affected")}</span>
           </div>
           <button
             onClick={toggleBack}
@@ -95,7 +97,7 @@ export default function ComplaintCard({ complaint, companyName, categoryName }: 
             style={backed ? { background: "var(--color-resolved)", color: "#fff" } : { background: "var(--color-secondary)", color: "#fff" }}
           >
             <span className="material-symbols-outlined" style={{ fontSize: 15 }}>{backed ? "check" : "add_circle"}</span>
-            <span>{backed ? "Backed" : "Me Too"}</span>
+            <span>{backed ? t("complaintCard.backed") : t("complaintCard.meToo")}</span>
           </button>
         </div>
         <div className="flex items-center gap-3 text-label-sm" style={{ color: "var(--color-outline)" }}>

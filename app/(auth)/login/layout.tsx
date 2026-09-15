@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Log In",
-  description: "Log in to VoiceUp to file complaints, back cases from your community, and track responses.",
+  title: "Connexion",
+  description: "Connectez-vous à Houni pour déposer des plaintes, soutenir les causes de votre communauté et suivre les réponses.",
   alternates: { canonical: "/login" },
   robots: { index: false, follow: true },
 };

@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: LayoutProps<"/complaints/[id]
       },
     };
   } catch {
-    return { title: "Complaint", robots: { index: false, follow: true } };
+    return { title: "Plainte", robots: { index: false, follow: true } };
   }
 }
 

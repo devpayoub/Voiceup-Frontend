@@ -39,15 +39,15 @@
   --color-on-primary-fixed:          #131b2e;
   --color-on-primary-fixed-variant:  #3f465c;
 
-  /* ── Secondary (Civic Blue action color) ── */
-  --color-secondary:                   #2563eb;
+  /* ── Secondary (Houni Red action color) ── */
+  --color-secondary:                   #ce1126;
   --color-on-secondary:                #ffffff;
-  --color-secondary-container:         #316bf3;
-  --color-on-secondary-container:      #fefcff;
-  --color-secondary-fixed:             #dbe1ff;
-  --color-secondary-fixed-dim:         #b4c5ff;
-  --color-on-secondary-fixed:          #00174b;
-  --color-on-secondary-fixed-variant:  #003ea8;
+  --color-secondary-container:         #e11d2e;
+  --color-on-secondary-container:      #fffcfc;
+  --color-secondary-fixed:             #ffdadb;
+  --color-secondary-fixed-dim:         #ffb3b6;
+  --color-on-secondary-fixed:          #4a0404;
+  --color-on-secondary-fixed-variant:  #7f1d1d;
 
   /* ── Tertiary ── */
   --color-tertiary:                   #000000;
@@ -90,7 +90,7 @@
   --color-border: #e2e8f0;
 
   /* ── Secondary hover ── */
-  --color-secondary-hover: #1d4ed8;
+  --color-secondary-hover: #a80f1e;
 
   /* ── Fonts ── */
   --font-sans:    var(--font-body);

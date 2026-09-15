@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { login } from "@/lib/api/auth";
 import { apiErrorMessage } from "@/lib/api/client";
 import AuthShell from "@/components/layout/AuthShell";
@@ -21,6 +22,7 @@ function IconInput({ icon, ...props }: { icon: string } & React.InputHTMLAttribu
 }
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -36,34 +38,31 @@ export default function LoginPage() {
       router.push("/");
       router.refresh();
     } catch (err) {
-      setError(apiErrorMessage(err, "Invalid email or password."));
+      setError(apiErrorMessage(err, t("auth.login.errorInvalid")));
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <AuthShell
-      headline="Welcome back to VoiceUp."
-      subhead="Access your filed complaints, back cases from your community, and track responses."
-    >
+    <AuthShell headline={t("auth.login.headline")} subhead={t("auth.login.subhead")}>
       <div className="card" style={{ padding: "2.5rem" }}>
-        <h2 className="text-headline-md" style={{ color: "var(--color-on-surface)" }}>Log in</h2>
+        <h2 className="text-headline-md" style={{ color: "var(--color-on-surface)" }}>{t("auth.login.title")}</h2>
         <p className="text-body-md" style={{ color: "var(--color-on-surface-variant)", marginTop: "0.375rem", marginBottom: "1.5rem" }}>
-          Sign in to submit complaints, back others, and comment.
+          {t("auth.login.subtitle")}
         </p>
         <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          <IconInput icon="mail" type="email" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-          <IconInput icon="lock" type="password" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+          <IconInput icon="mail" type="email" placeholder={t("auth.login.email")} required value={email} onChange={(e) => setEmail(e.target.value)} />
+          <IconInput icon="lock" type="password" placeholder={t("auth.login.password")} required value={password} onChange={(e) => setPassword(e.target.value)} />
           {error && <p className="text-body-sm" style={{ color: "var(--color-on-error-container)" }}>{error}</p>}
           <Button type="submit" disabled={loading} style={{ height: "3.25rem", width: "100%", gap: "0.5rem" }}>
-            <span>{loading ? "Logging in..." : "Log in"}</span>
+            <span>{loading ? t("auth.login.submitting") : t("auth.login.submit")}</span>
             {!loading && <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span>}
           </Button>
         </form>
         <p className="text-body-sm" style={{ marginTop: "1.5rem", color: "var(--color-on-surface-variant)", textAlign: "center" }}>
-          No account?{" "}
-          <Link href="/register" style={{ color: "var(--color-secondary)", fontWeight: 600 }}>Sign up</Link>
+          {t("auth.login.noAccount")}{" "}
+          <Link href="/register" style={{ color: "var(--color-secondary)", fontWeight: 600 }}>{t("auth.login.signupLink")}</Link>
         </p>
       </div>
     </AuthShell>

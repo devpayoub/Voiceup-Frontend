@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { apiFetch, apiJson } from "@/lib/api";
 import { isAuthenticated } from "@/lib/auth";
 import { categoryIcon } from "@/lib/format";
@@ -11,7 +12,7 @@ import Button from "@/components/ui/Button";
 
 const DESCRIPTION_MAX = 2000;
 
-function SectionCard({ icon, title, required, children }: { icon: string; title: string; required?: boolean; children: React.ReactNode }) {
+function SectionCard({ icon, title, required, requiredLabel, children }: { icon: string; title: string; required?: boolean; requiredLabel?: string; children: React.ReactNode }) {
   return (
     <div className="bg-surface-container-lowest rounded-xl shadow-sm" style={{ padding: "1.5rem" }}>
       <div className="flex items-center justify-between" style={{ marginBottom: "1rem" }}>
@@ -20,7 +21,7 @@ function SectionCard({ icon, title, required, children }: { icon: string; title:
           <span>{title}</span>
         </div>
         {required && (
-          <span className="text-label-sm uppercase" style={{ color: "var(--color-outline)", letterSpacing: "0.04em" }}>Required</span>
+          <span className="text-label-sm uppercase" style={{ color: "var(--color-outline)", letterSpacing: "0.04em" }}>{requiredLabel}</span>
         )}
       </div>
       {children}
@@ -29,6 +30,7 @@ function SectionCard({ icon, title, required, children }: { icon: string; title:
 }
 
 export default function NewComplaintPage() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [categories, setCategories] = useState<Category[]>([]);
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -72,7 +74,7 @@ export default function NewComplaintPage() {
       const created = await res.json();
       router.push(`/complaints/${created.id}`);
     } catch {
-      setError("Could not submit complaint. Check the fields and try again.");
+      setError(t("newComplaint.error"));
     } finally {
       setLoading(false);
     }
@@ -84,18 +86,18 @@ export default function NewComplaintPage() {
         <div style={{ marginBottom: "1.5rem" }}>
           <div className="flex items-center gap-2 text-label-sm uppercase" style={{ color: "var(--color-secondary)", letterSpacing: "0.04em", marginBottom: "0.5rem" }}>
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--color-secondary)", display: "inline-block" }} />
-            Verified Citizen Action Protocol
+            {t("newComplaint.badge")}
           </div>
-          <h1 className="text-headline-xl" style={{ color: "var(--color-on-surface)" }}>File a Public Complaint</h1>
+          <h1 className="text-headline-xl" style={{ color: "var(--color-on-surface)" }}>{t("newComplaint.title")}</h1>
           <p className="text-body-lg" style={{ color: "var(--color-on-surface-variant)", marginTop: "0.5rem", maxWidth: 680 }}>
-            Document your dispute publicly. Other citizens facing the same issue can back it and add their own evidence.
+            {t("newComplaint.subtitle")}
           </p>
         </div>
 
         <form onSubmit={onSubmit}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             <div className="lg:col-span-8 flex flex-col gap-4">
-              <SectionCard icon="category" title="Select Category" required>
+              <SectionCard icon="category" title={t("newComplaint.stepCategory")} required requiredLabel={t("newComplaint.required")}>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))", gap: "0.5rem" }}>
                   {categories.map((c) => (
                     <button
@@ -113,10 +115,10 @@ export default function NewComplaintPage() {
                 </div>
               </SectionCard>
 
-              <SectionCard icon="apartment" title="Disputed Company" required>
+              <SectionCard icon="apartment" title={t("newComplaint.stepCompany")} required requiredLabel={t("newComplaint.required")}>
                 <Input
                   list="company-options"
-                  placeholder="Type the company or brand name"
+                  placeholder={t("newComplaint.companyPlaceholder")}
                   required
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
@@ -126,18 +128,18 @@ export default function NewComplaintPage() {
                 </datalist>
               </SectionCard>
 
-              <SectionCard icon="description" title="Grievance Details" required>
+              <SectionCard icon="description" title={t("newComplaint.stepDetails")} required requiredLabel={t("newComplaint.required")}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   <div>
                     <label className="text-label-md" style={{ display: "block", marginBottom: "0.375rem", color: "var(--color-on-surface)" }}>
-                      Complaint headline
+                      {t("newComplaint.headlineLabel")}
                     </label>
-                    <Input placeholder="e.g., Charged $180 unreturned equipment fee despite return receipt" required value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <Input placeholder={t("newComplaint.headlinePlaceholder")} required value={title} onChange={(e) => setTitle(e.target.value)} />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="text-label-md" style={{ display: "block", marginBottom: "0.375rem", color: "var(--color-on-surface)" }}>
-                        Region
+                        {t("newComplaint.regionLabel")}
                       </label>
                       <div style={{ position: "relative" }}>
                         <span className="material-symbols-outlined" style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--color-outline)", fontSize: 20, pointerEvents: "none" }}>
@@ -146,7 +148,7 @@ export default function NewComplaintPage() {
                         <Input
                           list="region-options"
                           style={{ paddingLeft: "2.5rem" }}
-                          placeholder="e.g., Tunis"
+                          placeholder={t("newComplaint.regionPlaceholder")}
                           required
                           value={region}
                           onChange={(e) => setRegion(e.target.value)}
@@ -158,18 +160,18 @@ export default function NewComplaintPage() {
                     </div>
                     <div>
                       <label className="text-label-md" style={{ display: "block", marginBottom: "0.375rem", color: "var(--color-on-surface)" }}>
-                        City
+                        {t("newComplaint.cityLabel")}
                       </label>
-                      <Input placeholder="e.g., La Marsa" value={city} onChange={(e) => setCity(e.target.value)} />
+                      <Input placeholder={t("newComplaint.cityPlaceholder")} value={city} onChange={(e) => setCity(e.target.value)} />
                     </div>
                   </div>
                   <div>
                     <div className="flex items-center justify-between" style={{ marginBottom: "0.375rem" }}>
-                      <label className="text-label-md" style={{ color: "var(--color-on-surface)" }}>Detailed incident description</label>
+                      <label className="text-label-md" style={{ color: "var(--color-on-surface)" }}>{t("newComplaint.descriptionLabel")}</label>
                       <span className="text-label-sm" style={{ color: "var(--color-outline)" }}>{description.length} / {DESCRIPTION_MAX}</span>
                     </div>
                     <Textarea
-                      placeholder="Include dates, reference numbers, and who was affected."
+                      placeholder={t("newComplaint.descriptionPlaceholder")}
                       required
                       rows={6}
                       maxLength={DESCRIPTION_MAX}
@@ -180,7 +182,7 @@ export default function NewComplaintPage() {
                 </div>
               </SectionCard>
 
-              <SectionCard icon="verified_user" title="Evidence (optional)">
+              <SectionCard icon="verified_user" title={t("newComplaint.evidenceTitle")}>
                 <label
                   className="flex flex-col items-center justify-center"
                   style={{
@@ -192,9 +194,9 @@ export default function NewComplaintPage() {
                     <span className="material-symbols-outlined" style={{ fontSize: 26, color: "var(--color-secondary)" }}>cloud_upload</span>
                   </div>
                   <span className="text-title-md" style={{ color: "var(--color-on-surface)" }}>
-                    {photo ? photo.name : "Click to attach a photo"}
+                    {photo ? photo.name : t("newComplaint.evidenceCta")}
                   </span>
-                  <span className="text-label-sm" style={{ color: "var(--color-outline)", marginTop: "0.25rem" }}>PNG or JPG</span>
+                  <span className="text-label-sm" style={{ color: "var(--color-outline)", marginTop: "0.25rem" }}>{t("newComplaint.evidenceFormats")}</span>
                   <input type="file" accept="image/*" onChange={(e) => setPhoto(e.target.files?.[0] ?? null)} style={{ display: "none" }} />
                 </label>
               </SectionCard>
@@ -202,7 +204,7 @@ export default function NewComplaintPage() {
               {error && <p className="text-body-sm" style={{ color: "var(--color-on-error-container)" }}>{error}</p>}
 
               <Button type="submit" disabled={loading} style={{ height: "3.25rem", width: "100%" }}>
-                {loading ? "Submitting..." : "Submit complaint"}
+                {loading ? t("newComplaint.submitting") : t("newComplaint.submit")}
               </Button>
             </div>
 
@@ -210,12 +212,12 @@ export default function NewComplaintPage() {
               <div className="bg-surface-container-lowest rounded-xl shadow-sm" style={{ padding: "1.5rem" }}>
                 <div className="flex items-center gap-2 text-headline-sm" style={{ color: "var(--color-secondary)", marginBottom: "0.75rem" }}>
                   <span className="material-symbols-outlined" style={{ fontSize: 24 }}>campaign</span>
-                  <span>Tips for Rallying Backers</span>
+                  <span>{t("newComplaint.tipsTitle")}</span>
                 </div>
                 {[
-                  { title: "Be specific", body: "Cite dates and reference numbers — specificity makes complaints easier to verify." },
-                  { title: "Attach evidence", body: "A photo of a bill, receipt, or screenshot goes a long way toward credibility." },
-                  { title: "Describe the impact", body: "If this looks like a pattern affecting many people, say so clearly." },
+                  { title: t("newComplaint.tip1Title"), body: t("newComplaint.tip1Body") },
+                  { title: t("newComplaint.tip2Title"), body: t("newComplaint.tip2Body") },
+                  { title: t("newComplaint.tip3Title"), body: t("newComplaint.tip3Body") },
                 ].map((tip, i) => (
                   <div key={tip.title} className="flex items-start gap-3" style={{ marginTop: i === 0 ? 0 : "1rem" }}>
                     <div style={{ width: 24, height: 24, borderRadius: "50%", background: "var(--color-surface-container)", color: "var(--color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}>

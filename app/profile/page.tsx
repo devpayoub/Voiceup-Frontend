@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { apiJson } from "@/lib/api";
 import { isAuthenticated } from "@/lib/auth";
 import { avatarColor, initials, memberSince } from "@/lib/format";
@@ -13,6 +14,7 @@ import Select from "@/components/ui/Select";
 import { ComplaintCardSkeleton, Skeleton } from "@/components/ui/Skeleton";
 
 export default function ProfilePage() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [me, setMe] = useState<User | null>(null);
   const [complaints, setComplaints] = useState<Complaint[]>([]);
@@ -52,12 +54,12 @@ export default function ProfilePage() {
     const resolved = complaints.filter((c) => c.status === "resolved").length;
     const commentsReceived = complaints.reduce((sum, c) => sum + c.comment_count, 0);
     return [
-      { label: "Complaints Filed", value: complaints.length, icon: "article" },
-      { label: "Backers Rallied", value: backers, icon: "local_fire_department" },
-      { label: "Resolved", value: resolved, icon: "task_alt" },
-      { label: "Comments Received", value: commentsReceived, icon: "forum" },
+      { label: t("profile.statFiled"), value: complaints.length, icon: "article" },
+      { label: t("profile.statBackers"), value: backers, icon: "local_fire_department" },
+      { label: t("profile.statResolved"), value: resolved, icon: "task_alt" },
+      { label: t("profile.statComments"), value: commentsReceived, icon: "forum" },
     ];
-  }, [complaints]);
+  }, [complaints, t]);
   const maxMetric = Math.max(1, ...metrics.map((m) => m.value));
 
   if (!me) {
@@ -107,14 +109,14 @@ export default function ProfilePage() {
                   )}
                   <span className="flex items-center gap-1">
                     <span className="material-symbols-outlined" style={{ fontSize: 16, color: "var(--color-outline)" }}>calendar_month</span>
-                    Member since {memberSince(me.date_joined)}
+                    {t("profile.memberSince")} {memberSince(me.date_joined)}
                   </span>
                 </div>
               </div>
             </div>
             <Link href="/complaints/new" className="btn-primary" style={{ gap: "0.375rem" }}>
               <span className="material-symbols-outlined" style={{ fontSize: 18 }}>add_circle</span>
-              File Another Complaint
+              {t("profile.fileAnother")}
             </Link>
           </div>
 
@@ -140,24 +142,24 @@ export default function ProfilePage() {
             <span className="material-symbols-outlined" style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--color-outline)", fontSize: 18, pointerEvents: "none" }}>
               search
             </span>
-            <Input style={{ paddingLeft: "2.5rem" }} placeholder="Filter by title..." value={search} onChange={(e) => setSearch(e.target.value)} />
+            <Input style={{ paddingLeft: "2.5rem" }} placeholder={t("profile.filterPlaceholder")} value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
           <Select value={status} onChange={(e) => setStatus(e.target.value)} style={{ maxWidth: 220 }}>
-            <option value="">All statuses ({complaints.length})</option>
-            <option value="received">Received</option>
-            <option value="in_progress">In progress</option>
-            <option value="resolved">Resolved</option>
+            <option value="">{t("profile.allStatuses")} ({complaints.length})</option>
+            <option value="received">{t("status.received")}</option>
+            <option value="in_progress">{t("status.inProgress")}</option>
+            <option value="resolved">{t("status.resolved")}</option>
           </Select>
         </div>
 
         {/* Complaints */}
         <div>
           <h2 className="text-headline-sm" style={{ color: "var(--color-on-surface)", marginBottom: "1rem" }}>
-            My Complaints ({filtered.length})
+            {t("profile.myComplaints")} ({filtered.length})
           </h2>
           {filtered.length === 0 ? (
             <p className="text-body-md" style={{ color: "var(--color-outline)" }}>
-              {complaints.length === 0 ? "You haven't submitted any complaints yet." : "No complaints match these filters."}
+              {complaints.length === 0 ? t("profile.emptyNone") : t("profile.emptyFiltered")}
             </p>
           ) : (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1rem" }}>

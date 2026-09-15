@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { apiJson } from "@/lib/api";
 import { Category, Company, Complaint } from "@/lib/types";
 
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export default function AuthShell({ headline, subhead, children }: Props) {
+  const { t } = useTranslation();
   const [stats, setStats] = useState({ complaints: 0, backers: 0, categories: 0, companies: 0 });
 
   useEffect(() => {
@@ -54,8 +56,8 @@ export default function AuthShell({ headline, subhead, children }: Props) {
                 <span className="material-symbols-outlined" style={{ fontSize: 22 }}>gavel</span>
               </div>
               <div>
-                <div className="text-headline-sm" style={{ color: "#fff" }}>VoiceUp</div>
-                <div className="text-label-sm uppercase" style={{ letterSpacing: "0.1em", color: "rgba(255,255,255,0.65)" }}>Civic Redress Network</div>
+                <div className="text-headline-sm" style={{ color: "#fff" }}>{t("brand.name")}</div>
+                <div className="text-label-sm uppercase" style={{ letterSpacing: "0.1em", color: "rgba(255,255,255,0.65)" }}>{t("brand.tagline")}</div>
               </div>
             </div>
 
@@ -66,10 +68,10 @@ export default function AuthShell({ headline, subhead, children }: Props) {
 
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: "Complaints Filed", value: stats.complaints },
-                { label: "Citizens Backing", value: stats.backers },
-                { label: "Categories Tracked", value: stats.categories },
-                { label: "Companies Tracked", value: stats.companies },
+                { label: t("home.statFiled"), value: stats.complaints },
+                { label: t("home.statBacking"), value: stats.backers },
+                { label: t("home.statCategories"), value: stats.categories },
+                { label: t("home.statCompanies"), value: stats.companies },
               ].map((s) => (
                 <div key={s.label} style={{ background: "rgba(255,255,255,0.06)", borderRadius: "0.5rem", padding: "1rem" }}>
                   <div className="text-counter-lg" style={{ color: "#fff" }}>{s.value}</div>

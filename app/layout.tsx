@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import I18nProvider from "@/components/I18nProvider";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
@@ -18,10 +19,12 @@ const heading = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+const HERO_TITLE = `${SITE_NAME} — Responsabilité Publique et Action Collective`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Public Accountability & Collective Action`,
+    default: HERO_TITLE,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -31,13 +34,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Public Accountability & Collective Action`,
+    title: HERO_TITLE,
     description: SITE_DESCRIPTION,
     url: "/",
+    locale: "fr_TN",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — Public Accountability & Collective Action`,
+    title: HERO_TITLE,
     description: SITE_DESCRIPTION,
   },
 };
@@ -53,7 +57,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${body.variable} ${heading.variable} h-full antialiased`}>
+    <html lang="fr" dir="ltr" className={`${body.variable} ${heading.variable} h-full antialiased`}>
       <head>
         <link
           rel="stylesheet"
@@ -65,9 +69,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="flex flex-col min-h-full" style={{ background: "var(--color-background)" }}>
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <I18nProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </I18nProvider>
       </body>
     </html>
   );

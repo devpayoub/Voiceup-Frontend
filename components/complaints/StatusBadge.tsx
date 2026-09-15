@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
 import { Status } from "@/lib/types";
 
 const BADGE_CLASS: Record<Status, string> = {
@@ -6,10 +9,10 @@ const BADGE_CLASS: Record<Status, string> = {
   resolved:    "badge badge-resolved",
 };
 
-const LABELS: Record<Status, string> = {
-  received:    "Received",
-  in_progress: "In Progress",
-  resolved:    "Resolved",
+const LABEL_KEYS: Record<Status, string> = {
+  received:    "status.received",
+  in_progress: "status.inProgress",
+  resolved:    "status.resolved",
 };
 
 const ICONS: Record<Status, string> = {
@@ -19,12 +22,13 @@ const ICONS: Record<Status, string> = {
 };
 
 export default function StatusBadge({ status }: { status: Status }) {
+  const { t } = useTranslation();
   return (
     <span className={BADGE_CLASS[status]}>
       <span className={`material-symbols-outlined ${status === "resolved" ? "filled" : ""}`} style={{ fontSize: 14 }}>
         {ICONS[status]}
       </span>
-      {LABELS[status]}
+      {t(LABEL_KEYS[status])}
     </span>
   );
 }
